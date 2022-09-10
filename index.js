@@ -2,12 +2,15 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
-import authRoutes from './routes/auth.js';
-import userRoutes from './routes/user.js'
+
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+import compression from 'compression';
 
-const PORT = 4000
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js'
+
+const PORT = process.env.PORT || 4000
 
 const app = express()
 
@@ -29,7 +32,7 @@ const connect = async() => {
 app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
-
+app.use(compression())
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
